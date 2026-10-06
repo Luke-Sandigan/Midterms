@@ -20,3 +20,7 @@ export const registerSchema = Joi.object({
             "string.max": "Password must be at most 72 bytes",
         }),
 }).required();
+export const loginSchema = Joi.object({
+    username: Joi.string().trim().lowercase().required(),
+    password: Joi.string().required(),
+}).required();
