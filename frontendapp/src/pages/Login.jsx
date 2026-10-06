@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
 
@@ -11,7 +13,7 @@ function Login() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(`Welcome back, ${form.email || "user"}!`);
+    navigate("/books");
   };
 
   return (
@@ -83,7 +85,7 @@ function Login() {
                 <input type="checkbox" />
                 <span>Remember me</span>
               </label>
-              <a href="#forgot">Forgot password?</a>
+              <button type="button" className="text-link">Forgot password?</button>
             </div>
 
             <button className="login-button" type="submit">
@@ -92,7 +94,7 @@ function Login() {
           </form>
 
           <p className="signup">
-            Don't have an account? <a href="#register">Create one</a>
+            Don't have an account? <button type="button" className="text-link inline-link">Create one</button>
           </p>
         </div>
       </section>
