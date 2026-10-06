@@ -35,7 +35,7 @@ function Books({ availableOnly = false }) {
           <h1>Find a book.</h1>
           <p className="books-subtitle">{showAvailableOnly ? "Browse books that are currently available to borrow." : "Search the library collection by title, author, or category."}</p>
         </div>
-        <a className="logout-link" href="/login">Sign out</a>
+        <div className="books-actions"><Link className="secondary-button nav-button" to="/borrowed-books">My borrowed books</Link><Link className="logout-link" to="/login">Sign out</Link></div>
       </header>
 
       <section className="search-panel">

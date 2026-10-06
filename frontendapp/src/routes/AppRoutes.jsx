@@ -2,6 +2,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "../pages/Login";
 import Books from "../pages/Books";
 import Borrowing from "../pages/Borrowing";
+import BorrowedBooks from "../pages/BorrowedBooks";
 
 function AppRoutes() {
   return (
@@ -11,6 +12,7 @@ function AppRoutes() {
       <Route path="/books" element={<Books />} />
       <Route path="/books/available" element={<Books availableOnly />} />
       <Route path="/borrow/:bookId" element={<Borrowing />} />
+      <Route path="/borrowed-books" element={<BorrowedBooks />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );

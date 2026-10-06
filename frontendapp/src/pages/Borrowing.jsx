@@ -30,6 +30,25 @@ function Borrowing() {
 
   const submit = (event) => {
     event.preventDefault();
+    const borrowing = {
+      id: Date.now(),
+      bookId: book.id,
+      title: book.title,
+      author: book.author,
+      category: book.category,
+      borrowerName: form.borrowerName,
+      studentId: form.studentId,
+      borrowDate: form.borrowDate,
+      returnDate: form.returnDate,
+      status: "Borrowed",
+    };
+
+    const existing = JSON.parse(localStorage.getItem("borrowedBooks") || "[]");
+    localStorage.setItem("borrowedBooks", JSON.stringify([borrowing, ...existing]));
+    localStorage.setItem("studentProfile", JSON.stringify({
+      borrowerName: form.borrowerName,
+      studentId: form.studentId,
+    }));
     setSubmitted(true);
   };
 
@@ -46,7 +65,7 @@ function Borrowing() {
             <span>Borrow date</span><strong>{form.borrowDate}</strong>
             <span>Return date</span><strong>{form.returnDate}</strong>
           </div>
-          <Link className="login-button center-button" to="/books">Back to books <span>→</span></Link>
+          <div className="confirmation-actions"><Link className="login-button center-button" to="/borrowed-books">View my borrowed books <span>→</span></Link><Link className="secondary-button center-secondary" to="/books">Back to books</Link></div>
         </div>
       </main>
     );

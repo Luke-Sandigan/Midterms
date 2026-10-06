@@ -112,3 +112,38 @@ a { color: inherit; }
 .confirmation-details span { color: #888; }
 .center-button { width: 100%; text-decoration: none; }
 @media (max-width: 560px) { .form-card { padding: 25px; } .date-grid { grid-template-columns: 1fr; } .confirmation-details { grid-template-columns: 1fr; } }
+
+.books-actions, .borrowed-nav { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.nav-button { margin-top: 0; padding: 10px 15px; }
+.borrowed-page { min-height: 100vh; width: min(1000px, calc(100% - 40px)); margin: auto; padding: 58px 0 70px; }
+.borrowed-header { display: flex; justify-content: space-between; gap: 30px; align-items: flex-end; margin-bottom: 30px; }
+.borrowed-header h1 { margin: 0; font-size: clamp(42px, 6vw, 66px); line-height: .98; letter-spacing: -.05em; }
+.student-summary { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 1px; overflow: hidden; border: 1px solid #e2e0d9; border-radius: 16px; background: #e2e0d9; margin-bottom: 25px; }
+.student-summary > div { display: grid; gap: 5px; padding: 18px; background: #fff; }
+.student-summary span { color: #999; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+.student-summary strong { font-size: 15px; }
+.borrowed-results { margin-top: 0; }
+.borrowed-list { display: grid; gap: 14px; }
+.borrowed-card { display: grid; grid-template-columns: 105px 1fr; gap: 20px; background: #fff; border: 1px solid #e2e0d9; border-radius: 16px; padding: 17px; }
+.borrowed-cover { min-height: 140px; }
+.borrowed-info h2 { margin: 0; font-size: 22px; line-height: 1.2; }
+.borrowed-info p { margin: 7px 0 18px; color: #777; font-size: 13px; }
+.borrow-dates { display: flex; gap: 35px; padding-top: 14px; border-top: 1px solid #eee; }
+.borrow-dates div { display: grid; gap: 4px; }
+.borrow-dates span { color: #999; font-size: 11px; }
+.borrow-dates strong { font-size: 13px; }
+.borrowed-empty { margin-top: 10px; }
+.empty-icon { width: 48px; height: 48px; display: grid; place-items: center; margin: 0 auto 16px; border-radius: 50%; background: #eeeae0; color: #777; font-size: 23px; }
+.browse-button { width: min(260px, 100%); margin: 22px auto 0; text-decoration: none; }
+.confirmation-actions { display: grid; gap: 10px; }
+.center-secondary { width: 100%; text-align: center; margin-top: 0; }
+@media (max-width: 700px) {
+  .borrowed-header { align-items: flex-start; flex-direction: column; }
+  .student-summary { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .borrowed-page { width: min(100% - 24px, 1000px); }
+  .borrowed-card { grid-template-columns: 78px 1fr; gap: 13px; }
+  .borrowed-cover { min-height: 115px; }
+  .borrow-dates { flex-direction: column; gap: 10px; }
+}
