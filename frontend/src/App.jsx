@@ -5,7 +5,7 @@ function App() {
   const [search, setSearch] = useState("");
   const [selectedBook, setSelectedBook] = useState(null);
 
-  const books = [
+  const [books, setBooks] = useState([
     {
       id: 1,
       title: "Noli Me Tangere",
@@ -33,7 +33,7 @@ function App() {
       description:
         "An introductory reference covering fundamental nursing concepts and practices.",
     },
-  ];
+  ]);
 
   const filteredBooks = books.filter((book) => {
     const searchText = search.toLowerCase();
@@ -44,6 +44,23 @@ function App() {
       book.category.toLowerCase().includes(searchText)
     );
   });
+
+  function handleReturnBook(bookId) {
+    setBooks((currentBooks) =>
+      currentBooks.map((book) =>
+        book.id === bookId
+          ? { ...book, status: "Available" }
+          : book
+      )
+    );
+
+    if (selectedBook?.id === bookId) {
+      setSelectedBook((currentBook) => ({
+        ...currentBook,
+        status: "Available",
+      }));
+    }
+  }
 
   return (
     <div className="page">
@@ -70,6 +87,7 @@ function App() {
                 <th>Category</th>
                 <th>Status</th>
                 <th>Details</th>
+                <th>Action</th>
               </tr>
             </thead>
 
@@ -80,6 +98,7 @@ function App() {
                     <td>{book.title}</td>
                     <td>{book.author}</td>
                     <td>{book.category}</td>
+
                     <td>
                       <span
                         className={
@@ -91,6 +110,7 @@ function App() {
                         {book.status}
                       </span>
                     </td>
+
                     <td>
                       <button
                         className="details-button"
@@ -99,11 +119,24 @@ function App() {
                         View Details
                       </button>
                     </td>
+
+                    <td>
+                      {book.status === "Borrowed" ? (
+                        <button
+                          className="return-button"
+                          onClick={() => handleReturnBook(book.id)}
+                        >
+                          Return Book
+                        </button>
+                      ) : (
+                        <span className="no-action">—</span>
+                      )}
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="no-results">
+                  <td colSpan="6" className="no-results">
                     No books found.
                   </td>
                 </tr>
@@ -115,11 +148,35 @@ function App() {
         {selectedBook && (
           <div className="book-details">
             <h2>Book Details</h2>
-            <p><strong>Title:</strong> {selectedBook.title}</p>
-            <p><strong>Author:</strong> {selectedBook.author}</p>
-            <p><strong>Category:</strong> {selectedBook.category}</p>
-            <p><strong>Status:</strong> {selectedBook.status}</p>
-            <p><strong>Description:</strong> {selectedBook.description}</p>
+
+            <p>
+              <strong>Title:</strong> {selectedBook.title}
+            </p>
+
+            <p>
+              <strong>Author:</strong> {selectedBook.author}
+            </p>
+
+            <p>
+              <strong>Category:</strong> {selectedBook.category}
+            </p>
+
+            <p>
+              <strong>Status:</strong> {selectedBook.status}
+            </p>
+
+            <p>
+              <strong>Description:</strong> {selectedBook.description}
+            </p>
+
+            {selectedBook.status === "Borrowed" && (
+              <button
+                className="return-button"
+                onClick={() => handleReturnBook(selectedBook.id)}
+              >
+                Return Book
+              </button>
+            )}
 
             <button
               className="close-button"

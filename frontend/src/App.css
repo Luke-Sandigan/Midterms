@@ -20,7 +20,7 @@ input {
 }
 
 .container {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: 0 auto;
   background: white;
   padding: 30px;
@@ -66,6 +66,7 @@ td {
   padding: 14px;
   text-align: left;
   border-bottom: 1px solid #e5e7eb;
+  vertical-align: middle;
 }
 
 th {
@@ -114,6 +115,23 @@ tbody tr:hover {
   background: #1d4ed8;
 }
 
+.return-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #dc2626;
+  color: white;
+  cursor: pointer;
+}
+
+.return-button:hover {
+  background: #b91c1c;
+}
+
+.no-action {
+  color: #9ca3af;
+}
+
 .book-details {
   margin-top: 25px;
   padding: 20px;
@@ -131,6 +149,11 @@ tbody tr:hover {
 .book-details p {
   margin: 8px 0;
   line-height: 1.5;
+}
+
+.book-details .return-button {
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
 .close-button {
@@ -162,7 +185,8 @@ tbody tr:hover {
     font-size: 14px;
   }
 
-  .details-button {
+  .details-button,
+  .return-button {
     white-space: nowrap;
   }
 }
