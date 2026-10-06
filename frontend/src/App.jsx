@@ -1,6 +1,9 @@
+import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [search, setSearch] = useState("");
+
   const books = [
     {
       id: 1,
@@ -25,11 +28,31 @@ function App() {
     },
   ];
 
+  const filteredBooks = books.filter((book) => {
+    const searchText = search.toLowerCase();
+
+    return (
+      book.title.toLowerCase().includes(searchText) ||
+      book.author.toLowerCase().includes(searchText) ||
+      book.category.toLowerCase().includes(searchText)
+    );
+  });
+
   return (
     <div className="page">
       <div className="container">
         <h1>Library Books</h1>
-        <p className="subtitle">View books available in the library.</p>
+        <p className="subtitle">
+          Search and view books available in the library.
+        </p>
+
+        <input
+          type="text"
+          className="search-input"
+          placeholder="Search books..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
         <div className="table-wrapper">
           <table>
@@ -43,24 +66,32 @@ function App() {
             </thead>
 
             <tbody>
-              {books.map((book) => (
-                <tr key={book.id}>
-                  <td>{book.title}</td>
-                  <td>{book.author}</td>
-                  <td>{book.category}</td>
-                  <td>
-                    <span
-                      className={
-                        book.status === "Available"
-                          ? "status available"
-                          : "status borrowed"
-                      }
-                    >
-                      {book.status}
-                    </span>
+              {filteredBooks.length > 0 ? (
+                filteredBooks.map((book) => (
+                  <tr key={book.id}>
+                    <td>{book.title}</td>
+                    <td>{book.author}</td>
+                    <td>{book.category}</td>
+                    <td>
+                      <span
+                        className={
+                          book.status === "Available"
+                            ? "status available"
+                            : "status borrowed"
+                        }
+                      >
+                        {book.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="4" className="no-results">
+                    No books found.
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>

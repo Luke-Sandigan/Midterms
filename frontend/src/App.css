@@ -32,6 +32,20 @@ h1 {
   margin-bottom: 25px;
 }
 
+.search-input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 15px;
+  outline: none;
+}
+
+.search-input:focus {
+  border-color: #2563eb;
+}
+
 .table-wrapper {
   overflow-x: auto;
 }
@@ -68,4 +82,10 @@ th {
 .borrowed {
   background: #fee2e2;
   color: #991b1b;
+}
+
+.no-results {
+  text-align: center;
+  color: #6b7280;
+  padding: 25px;
 }
