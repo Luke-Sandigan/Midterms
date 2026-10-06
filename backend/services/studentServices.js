@@ -6,7 +6,8 @@ import { signToken } from "../utils/token.js";
 const SALT_ROUNDS = 10;
 const INVALID_CREDENTIALS = "Invalid username or password";
 
-
+// Compared against when the username does not exist, so response time
+// looks the same as a real user with a wrong password.
 const DUMMY_HASH = bcrypt.hashSync("dummy_password", SALT_ROUNDS);
 
 export const registerStudent = async ({ username, password }) => {
@@ -37,7 +38,7 @@ export const loginStudent = async ({ username, password }) => {
     const hashToCompare = student ? student.password : DUMMY_HASH;
     const isMatch = await bcrypt.compare(password, hashToCompare);
 
-
+    // Rule 7: same message for "not found" and "wrong password".
     if (!student || !isMatch) {
         throw createError(401, INVALID_CREDENTIALS);
     }
@@ -49,5 +50,21 @@ export const loginStudent = async ({ username, password }) => {
             username: student.username,
             role: student.role,
         },
+    };
+};
+
+// Used by the auth middleware. Reads the CURRENT role from the database,
+// so a stale token cannot keep an old role or a deleted account alive.
+export const getStudentById = async (id) => {
+    const student = await Student.findById(id);
+
+    if (!student) {
+        throw createError(401, "Account no longer exists");
+    }
+
+    return {
+        id: student._id.toString(),
+        username: student.username,
+        role: student.role,
     };
 };

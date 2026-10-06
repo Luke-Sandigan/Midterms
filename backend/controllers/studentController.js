@@ -31,3 +31,7 @@ export const login = async (req, res) => {
         return handleError(res, err);
     }
 };
+
+export const getMe = (req, res) => {
+    return sendSuccess(res, 200, "Current student fetched", req.user);
+};
