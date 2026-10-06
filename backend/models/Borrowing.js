@@ -145,3 +145,40 @@ exports.returnBook = async (req, res) => {
     });
   }
 };
+
+
+exports.getBorrowedBooks = async (req, res) => {
+  try {
+    const { studentId } = req.params;
+
+    const student = await Student.findById(studentId);
+
+    if (!student) {
+      return res.status(404).json({
+        success: false,
+        message: "Student not found",
+      });
+    }
+
+    const borrowings = await Borrowing.find({
+      student: studentId,
+      status: "borrowed",
+    })
+      .populate("book")
+      .sort({ borrowedAt: -1 });
+
+    return res.status(200).json({
+      success: true,
+      count: borrowings.length,
+      borrowings,
+    });
+  } catch (error) {
+    console.error(error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to retrieve borrowed books",
+      error: error.message,
+    });
+  }
+};
