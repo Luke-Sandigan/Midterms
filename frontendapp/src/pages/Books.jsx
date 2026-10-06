@@ -11,18 +11,20 @@ const books = [
   { id: 8, title: "The Alchemist", author: "Paulo Coelho", category: "Adventure", year: 1988, available: true },
 ];
 
-function Books() {
+function Books({ availableOnly = false }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
+  const [showAvailableOnly, setShowAvailableOnly] = useState(availableOnly);
 
   const filteredBooks = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     return books.filter((book) => {
       const matchesQuery = !normalized || [book.title, book.author, book.category].some((value) => value.toLowerCase().includes(normalized));
       const matchesCategory = category === "All" || book.category === category;
-      return matchesQuery && matchesCategory;
+      const matchesAvailability = !showAvailableOnly || book.available;
+      return matchesQuery && matchesCategory && matchesAvailability;
     });
-  }, [query, category]);
+  }, [query, category, showAvailableOnly]);
 
   return (
     <main className="books-page">
@@ -30,7 +32,7 @@ function Books() {
         <div>
           <p className="eyebrow">LIBRARY CATALOG</p>
           <h1>Find a book.</h1>
-          <p className="books-subtitle">Search the library collection by title, author, or category.</p>
+          <p className="books-subtitle">{showAvailableOnly ? "Browse books that are currently available to borrow." : "Search the library collection by title, author, or category."}</p>
         </div>
         <a className="logout-link" href="/login">Sign out</a>
       </header>
@@ -57,9 +59,14 @@ function Books() {
         </select>
       </section>
 
+      <div className="availability-filter" role="group" aria-label="Book availability">
+        <button type="button" className={!showAvailableOnly ? "filter-active" : ""} onClick={() => setShowAvailableOnly(false)}>All books</button>
+        <button type="button" className={showAvailableOnly ? "filter-active" : ""} onClick={() => setShowAvailableOnly(true)}>Available books</button>
+      </div>
+
       <div className="results-row">
         <strong>{filteredBooks.length} {filteredBooks.length === 1 ? "book" : "books"}</strong>
-        <span>Library collection</span>
+        <span>{showAvailableOnly ? "Currently available" : "Library collection"}</span>
       </div>
 
       <section className="book-grid" aria-live="polite">

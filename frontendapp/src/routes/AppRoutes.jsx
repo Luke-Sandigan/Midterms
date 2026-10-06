@@ -8,6 +8,7 @@ function AppRoutes() {
       <Route path="/" element={<Navigate to="/login" replace />} />
       <Route path="/login" element={<Login />} />
       <Route path="/books" element={<Books />} />
+      <Route path="/books/available" element={<Books availableOnly />} />
       <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
