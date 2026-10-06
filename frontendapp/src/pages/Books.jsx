@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
 const books = [
   { id: 1, title: "The Great Gatsby", author: "F. Scott Fitzgerald", category: "Fiction", year: 1925, available: true },
@@ -83,9 +84,11 @@ function Books({ availableOnly = false }) {
               <h2>{book.title}</h2>
               <p>by {book.author}</p>
               <span className="category-tag">{book.category}</span>
-              <button type="button" disabled={!book.available} className="borrow-button">
-                {book.available ? "Borrow book" : "Currently unavailable"}
-              </button>
+              {book.available ? (
+                <Link className="borrow-button" to={`/borrow/${book.id}`}>Borrow book</Link>
+              ) : (
+                <button type="button" disabled className="borrow-button">Currently unavailable</button>
+              )}
             </div>
           </article>
         ))}
