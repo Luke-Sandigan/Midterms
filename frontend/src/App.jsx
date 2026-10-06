@@ -3,6 +3,7 @@ import "./App.css";
 
 function App() {
   const [search, setSearch] = useState("");
+  const [selectedBook, setSelectedBook] = useState(null);
 
   const books = [
     {
@@ -11,6 +12,8 @@ function App() {
       author: "Jose Rizal",
       category: "Novel",
       status: "Available",
+      description:
+        "A novel that explores Philippine society during the Spanish colonial period.",
     },
     {
       id: 2,
@@ -18,6 +21,8 @@ function App() {
       author: "Jose Rizal",
       category: "Novel",
       status: "Available",
+      description:
+        "The sequel to Noli Me Tangere, focusing on social injustice and reform.",
     },
     {
       id: 3,
@@ -25,6 +30,8 @@ function App() {
       author: "Various Authors",
       category: "Education",
       status: "Borrowed",
+      description:
+        "An introductory reference covering fundamental nursing concepts and practices.",
     },
   ];
 
@@ -62,6 +69,7 @@ function App() {
                 <th>Author</th>
                 <th>Category</th>
                 <th>Status</th>
+                <th>Details</th>
               </tr>
             </thead>
 
@@ -83,11 +91,19 @@ function App() {
                         {book.status}
                       </span>
                     </td>
+                    <td>
+                      <button
+                        className="details-button"
+                        onClick={() => setSelectedBook(book)}
+                      >
+                        View Details
+                      </button>
+                    </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="4" className="no-results">
+                  <td colSpan="5" className="no-results">
                     No books found.
                   </td>
                 </tr>
@@ -95,6 +111,24 @@ function App() {
             </tbody>
           </table>
         </div>
+
+        {selectedBook && (
+          <div className="book-details">
+            <h2>Book Details</h2>
+            <p><strong>Title:</strong> {selectedBook.title}</p>
+            <p><strong>Author:</strong> {selectedBook.author}</p>
+            <p><strong>Category:</strong> {selectedBook.category}</p>
+            <p><strong>Status:</strong> {selectedBook.status}</p>
+            <p><strong>Description:</strong> {selectedBook.description}</p>
+
+            <button
+              className="close-button"
+              onClick={() => setSelectedBook(null)}
+            >
+              Close
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -6,6 +6,12 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: #f4f6f8;
+  color: #1f2937;
+}
+
+button,
+input {
+  font: inherit;
 }
 
 .page {
@@ -67,7 +73,12 @@ th {
   color: #374151;
 }
 
+tbody tr:hover {
+  background: #f9fafb;
+}
+
 .status {
+  display: inline-block;
   padding: 6px 10px;
   border-radius: 20px;
   font-size: 13px;
@@ -88,4 +99,70 @@ th {
   text-align: center;
   color: #6b7280;
   padding: 25px;
+}
+
+.details-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.details-button:hover {
+  background: #1d4ed8;
+}
+
+.book-details {
+  margin-top: 25px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  background: #f9fafb;
+}
+
+.book-details h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #1f2937;
+}
+
+.book-details p {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.close-button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #6b7280;
+  color: white;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background: #4b5563;
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 20px 10px;
+  }
+
+  .container {
+    padding: 20px;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .details-button {
+    white-space: nowrap;
+  }
 }
